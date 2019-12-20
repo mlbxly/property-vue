@@ -16,8 +16,8 @@
     margin-left: -200px;
     top: 50%;
     margin-top: -150px;
-    width: 400px;
-    height: 240px;
+    width: 500px;
+    height: 300px;
     border-radius: 10px;
     background-color: #fff;
     padding: 20px 30px;
@@ -30,23 +30,37 @@
     margin-bottom: 15px;
   }
   .login .form-footer {
-    text-align: right;
+    text-align: left;
+  }
+  .form-footer button {
+    width: 120px;
+    height: 40px;
+    border-radius: 20px;
   }
 </style>
 <template>
   <div class="login">
     <div class="from-wrap">
-      <h2>登录</h2>
-      <Form ref="loginData" :model="loginData" :rules="ruleValidate" :label-width="80">
-        <FormItem label="账号/手机号码" prop="phone">
-          <Input type="text" v-model="loginData.phone" placeholder="请输入账号/手机号码"></Input>
+      <h2>用户登录</h2>
+      <Form ref="loginUser" :model="loginUser" :rules="ruleValidate" :label-width="80">
+        <FormItem label="用户名" prop="username">
+          <Input type="text" v-model="loginUser.username" placeholder="请输入用户名"></Input>
         </FormItem>
         <FormItem label="密码" prop="password">
-          <Input type="password" v-model="loginData.password" placeholder="请输入密码"></Input>
+          <Input type="password" v-model="loginUser.password" placeholder="请输入密码"></Input>
+        </FormItem>
+        <FormItem label="身份" prop="identity">
+          <RadioGroup v-model="identity">
+            <Radio label="业主" border></Radio>
+            <Radio label="员工" border></Radio>
+            <Radio label="商户" border></Radio>
+            <Radio label="租客" border></Radio>
+            <Radio label="物业管理员" border></Radio>
+          </RadioGroup>
         </FormItem>
         <FormItem class="form-footer">
-          <Button type="primary" @click="handleSubmit('loginData')">提交</Button>
-          <Button type="primary" @click="handleReset('loginData')" style="margin-left: 8px">重置</Button>
+          <Button type="primary" @click="handleSubmit('loginUser')" style="margin-left: -20px">登陆</Button>
+          <Button type="primary" @click="handleReset('loginUser')" style="margin-left: 60px">重置</Button>
         </FormItem>
       </Form>
     </div>
@@ -56,18 +70,22 @@
   export default {
     data () {
       return {
-        loginData: {
-          phone:'',
-          password:''
+        loginUser: {
+          username:'',
+          password:'',
+          identity:''
         },
         ruleValidate: {
-          phone: [
+          username: [
             { required: true, message: '账号不能为空', trigger: 'blur' },
             { min: 3, max: 15, message: '账号长度3-16个字符', trigger: 'blur' }
           ],
           password: [
             { required: true, message: '密码不能为空', trigger: 'blur' },
             { type: 'string', min: 6, max: 16, message: '密码长度6-16个字符', trigger: 'blur' }
+          ],
+          identity: [
+            {required: true, message: '请选择您的身份', trigger: 'blur'}
           ]
         }
       }
