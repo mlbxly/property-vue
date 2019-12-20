@@ -12,7 +12,9 @@ import 'vue-easytable/libs/themes-base/index.css'
 import {VTable,VPagination} from 'vue-easytable'
 Vue.component(VTable.name, VTable)
 Vue.component(VPagination.name, VPagination)
-
+//引入axios
+import axios from 'axios'
+Vue.prototype.$axios = axios
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

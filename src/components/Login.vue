@@ -16,7 +16,7 @@
     margin-left: -200px;
     top: 50%;
     margin-top: -150px;
-    width: 500px;
+    width: 400px;
     height: 300px;
     border-radius: 10px;
     background-color: #fff;
@@ -33,7 +33,7 @@
     text-align: left;
   }
   .form-footer button {
-    width: 120px;
+    width: 100px;
     height: 40px;
     border-radius: 20px;
   }
@@ -50,17 +50,14 @@
           <Input type="password" v-model="loginUser.password" placeholder="请输入密码"></Input>
         </FormItem>
         <FormItem label="身份" prop="identity">
-          <RadioGroup v-model="identity">
-            <Radio label="业主" border></Radio>
-            <Radio label="员工" border></Radio>
-            <Radio label="商户" border></Radio>
-            <Radio label="租客" border></Radio>
-            <Radio label="物业管理员" border></Radio>
-          </RadioGroup>
+          <input type="radio" v-model="loginUser.identity" value="1" style="margin-right: 5px;margin-left: 5px"/>业主
+          <input type="radio" v-model="loginUser.identity" value="2" style="margin-right: 5px;margin-left: 5px"/>员工
+          <input type="radio" v-model="loginUser.identity" value="3" style="margin-right: 5px;margin-left: 5px"/>物业管理员
+          <input type="radio" v-model="loginUser.identity" value="4" style="margin-right: 5px;margin-left: 5px"/>租户
         </FormItem>
         <FormItem class="form-footer">
           <Button type="primary" @click="handleSubmit('loginUser')" style="margin-left: -20px">登陆</Button>
-          <Button type="primary" @click="handleReset('loginUser')" style="margin-left: 60px">重置</Button>
+          <Button type="primary" @click="handleReset('loginUser')" style="margin-left: 40px">重置</Button>
         </FormItem>
       </Form>
     </div>
@@ -85,7 +82,7 @@
             { type: 'string', min: 6, max: 16, message: '密码长度6-16个字符', trigger: 'blur' }
           ],
           identity: [
-            {required: true, message: '请选择您的身份', trigger: 'blur'}
+            { required: true, message: '请选择您的身份', trigger: 'blur'}
           ]
         }
       }
@@ -94,7 +91,15 @@
       handleSubmit (name) {
         this.$refs[name].validate((valid) => {
           if (valid) {
-            this.$Message.success('提交成功!')
+            this.$axios({
+              url: 'http://localhost:8090/property/login',//请求的地址
+              method: 'post',//请求的方式
+              data: this.loginUser
+            }).then(res=>{
+              console.log('后台返回的数据:',res.data);
+            }).catch(err=>{
+              console.info('报错的信息', err.response.message);
+            });
           } else {
             this.$Message.error('表单验证失败!')
           }
