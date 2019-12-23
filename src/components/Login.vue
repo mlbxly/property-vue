@@ -2,7 +2,10 @@
   html,body {
     width: 100%;
     height: 100%;
-    background-color: #1c2438;
+    background: url("../assets/login.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: fixed;
   }
   .login {
     width: 100%;
@@ -97,6 +100,9 @@
               data: this.loginUser
             }).then(res=>{
               console.log('后台返回的数据:',res.data);
+              if(res.data.code === 0){
+                this.$router.replace('/')
+              }
             }).catch(err=>{
               console.info('报错的信息', err.response.message);
             });
