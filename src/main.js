@@ -19,6 +19,22 @@ Vue.prototype.$axios = axios
 Vue.config.productionTip = false
 
 
+router.beforeEach((to,from,next) => {
+  if(to.meta.requireAuth){
+    if(store.state.user.username || store.state.token){
+      next()
+    }else {
+      next({
+        path: 'login',
+        query: {redirect: to.fullPath}
+      })
+    }
+  }else{
+    next()
+  }
+}
+)
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

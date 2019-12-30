@@ -101,6 +101,9 @@
             }).then(res=>{
               console.log('后台返回的数据:',res.data);
               if(res.data.code === 0){
+                this.$store.commit('GET_USER',this.loginUser)
+                this.$store.commit('USER_TOKEN',res.data.data)
+                console.log("123456")
                 this.$router.replace('/')
               }
             }).catch(err=>{
