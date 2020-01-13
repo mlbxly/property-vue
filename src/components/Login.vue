@@ -94,15 +94,16 @@
       handleSubmit (name) {
         this.$refs[name].validate((valid) => {
           if (valid) {
-            this.$axios.
-            post('/login',{
+            this.$axios({
+              url: 'http://localhost:8090/property/login',//请求的地址
+              method: 'post',//请求的方式
               data: this.loginUser
             }).then(res=>{
               console.log('后台返回的数据:',res.data.data);
               if(res.data.code === 0){
                 this.$store.commit('GET_USER',this.loginUser)
                 this.$store.commit('USER_TOKEN',JSON.stringify(res.data.data))
-                this.$router.replace('/')
+                this.$router.replace('/table')
               }
             }).catch(err=>{
               console.info('报错的信息', err.response.message);

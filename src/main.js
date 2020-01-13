@@ -20,7 +20,6 @@ Vue.config.productionTip = false
 //创建axios实例
 var instance = axios.create({timeout: 1000*12})
 //设置post请求头
-axios.defaults.headers.post['Content-type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
 axios.defaults.baseURL = "http://127.0.0.1:8090/";
 
 /**

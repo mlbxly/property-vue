@@ -24,7 +24,10 @@ export default new Router({
     {
       path: '/table',
       name: 'Table',
-      component: TableMain
+      component: TableMain,
+      meta:{
+        requireAuth: true
+      }
     }
   ]
 })
