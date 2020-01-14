@@ -21,7 +21,6 @@ Vue.config.productionTip = false
 var instance = axios.create({timeout: 1000*12})
 //设置post请求头
 axios.defaults.baseURL = "http://127.0.0.1:8090/";
-
 /**
  * 请求拦截器
  * 每次请求前，如果存在token则在请求头中携带token

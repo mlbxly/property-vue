@@ -112,6 +112,20 @@
           var userId = this.tableData[index].userId
           console.log(userId)
         },
+        remove(index) {
+          this.$axios({
+            url: 'http://localhost:8090/property/deleteProperty',//请求的地址
+            method: 'post',//请求的方式
+            data: this.tableData[index].userId
+          }).then(res => {
+            if(res.data.code === 0){
+              console.log("11111")
+              window.location.reload()
+            }
+          }).catch(err => {
+            console.log(err.message)
+          })
+        }
       }
     }
 </script>
