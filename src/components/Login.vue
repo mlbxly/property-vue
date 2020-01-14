@@ -2,7 +2,7 @@
   html,body {
     width: 100%;
     height: 100%;
-    background: url("../assets/login.png");
+    background: url("../assets/background.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     position: fixed;

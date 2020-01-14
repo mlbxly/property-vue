@@ -19,25 +19,23 @@
             </MenuItem>
           </div>
         </Menu>
+        <Button type="primary" size="big" class="add" @click = "add()">添加</Button>
       </Header>
-      <Content :style="{padding: '0 50px'}">
+      <Content :style="{padding: '0 173px'}">
         <Breadcrumb :style="{margin: '20px 0'}">
           <BreadcrumbItem>Home</BreadcrumbItem>
           <BreadcrumbItem>Components</BreadcrumbItem>
           <BreadcrumbItem>Layout</BreadcrumbItem>
         </Breadcrumb>
-        <Card>
-          <div style="min-height: 200px;">
-            <v-table
-              is-horizontal-resize
-              style="width:100%"
-              :columns="columns"
-              :table-data="tableData"
-              row-hover-color="#eee"
-              row-click-color="#edf7ff"
-            ></v-table>
-          </div>
-        </Card>
+        <Table border :columns="columns" :data="tableData" >
+          <template slot-scope="{ row }" slot="name">
+            <strong>{{ row.name }}</strong>
+          </template>
+          <template slot-scope="{ row, index }" slot="action">
+            <Button type="primary" size="small" style="margin-right: 5px" @click="show(index)">修改</Button>
+            <Button type="error" size="small" @click="remove(index)">删除</Button>
+          </template>
+        </Table>
       </Content>
       <Footer class="layout-footer-center"> &copy; 作者：不若为止</Footer>
     </Layout>
@@ -49,16 +47,51 @@
       name:"table-main",
       data() {
         return {
-          tableData: [ ],
           columns: [
-            {field: 'username', title: '用户名', width: 80, titleAlign: 'center', columnAlign: 'center',isResize:true},
-            {field: 'gender', title: '性别', width: 50, titleAlign: 'center', columnAlign: 'center',isResize:true},
-            {field: 'userType', title: '身份', width: 50, titleAlign: 'center', columnAlign: 'center',isResize:true},
-            {field: 'phone', title: '手机号码', width: 150, titleAlign: 'center', columnAlign: 'center',isResize:true},
-            {field: 'createTime', title: '注册时间', width: 150, titleAlign: 'center', columnAlign: 'center',isResize:true},
-            {field: 'address', title: '家庭住址', width: 280, titleAlign: 'center', columnAlign: 'center',isResize:true},
-            {field: 'operation', title: '操作', width: 50, titleAlign: 'center', columnAlign: 'center',isResize:true}
-          ]
+            {
+              title: '姓名',
+              key: 'username',
+              width: 210 ,
+              align: 'center'
+            },
+            {
+              title: '手机号码',
+              key: 'phone',
+              width: 210 ,
+              align: 'center'
+            },
+            {
+              title: '身份',
+              key: 'userType',
+              width: 170 ,
+              align: 'center'
+            },
+            {
+              title: '性别',
+              key: 'gender',
+              width: 100 ,
+              align: 'center'
+            },
+            {
+              title: '地址',
+              key: 'address',
+              width: 280 ,
+              align: 'center'
+            },
+            {
+              title: '注册时间',
+              key: 'createTime',
+              width: 280 ,
+              align: 'center'
+            },
+            {
+              title: '操作',
+              slot: 'action',
+              width: 320,
+              align: 'center'
+            }
+          ],
+          tableData: []
         }
       },
       created() {
@@ -68,11 +101,30 @@
           }).catch(function (error) {
             console.log(error);
           });
+      },
+      methods: {
+        //添加用户
+        add() {
+          this.$router.replace("/addProperty")
+        },
+        //查看用户详情
+        show(index) {
+          var userId = this.tableData[index].userId
+          console.log(userId)
+        },
       }
     }
 </script>
 
 <style>
+  html,body{
+    width: 100%;
+    height: 100%;
+    background: url("../assets/background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: fixed;
+  }
   .layout{
     border: 1px solid #d7dde4;
     background: #f5f7f9;
@@ -101,5 +153,10 @@
   }
   .layout-footer-center{
     text-align: center;
+  }
+  .add {
+    position: fixed;
+    left: 175px;
+    top: 150px;
   }
 </style>
