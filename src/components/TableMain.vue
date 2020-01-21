@@ -123,6 +123,15 @@
             }
           ],
           tableData: [],
+          formData: {
+            username: '',
+            phone: '',
+            gender: '',
+            userType: '',
+            startCreateTime: '',
+            endCreateTime: '',
+            address:''
+          },
           addProperty: false,
           formValidate: {
             username: '',
@@ -152,7 +161,43 @@
               { required: true, message: '请输入家庭地址', trigger: 'blur' },
               { type: 'string', max: 30, message: '地址最多可以输入30个字符', trigger: 'blur' }
             ]
-          }
+          },
+          genderList: [
+            {
+              value: '0',
+              label: '全部'
+            },
+            {
+              value: '1',
+              label: '男'
+            },
+            {
+              value: '2',
+              label: '女'
+            }
+          ],
+          userTypeList: [
+            {
+              value: '0',
+              label: '全部'
+            },
+            {
+              value: '1',
+              label: '业主'
+            },
+            {
+              value: '2',
+              label: '员工'
+            },
+            {
+              value: '3',
+              label: '管理员'
+            },
+            {
+              value: '4',
+              label: '租户'
+            }
+          ],
         }
       },
       created() {
@@ -214,6 +259,10 @@
               this.$Message.error('添加失败!');
             }
           })
+        },
+        //筛选条件重置
+        cancelSelect(name){
+          this.$refs[name].resetFields();
         }
       }
     }
@@ -260,6 +309,6 @@
   .add {
     position: fixed;
     left: 175px;
-    top: 150px;
+    top: 145px;
   }
 </style>
